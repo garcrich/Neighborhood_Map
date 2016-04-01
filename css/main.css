@@ -1,0 +1,74 @@
+/*font-family: 'Cabin', sans-serif;*/
+html, body, #filter input, #filter button {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+}
+#map {
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+#list{
+	font-family: 'Cabin', sans-serif;
+	width: 300px;
+	height: 425px;
+	overflow: auto;
+	position: fixed;
+	top: 15px;
+	left: 15px;
+	background-color: #1a1a1a;
+	border-radius: 10px;
+}
+
+#loc_list, #filter button {
+	color: #f2f2f2;
+}
+
+#filter {
+	margin-top: 1.5em;
+	width: 100%;
+}
+
+#filter input, button {
+	height: 40px;
+	border: none;
+}
+
+#filter input {
+	width: calc(80% - 20px);
+	padding-left: 20px;
+}
+
+#filter button {
+	width: 20%;
+	margin-left: -4px;
+	background-color: #0077b5;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0px;
+	margin-left: 20px
+}
+
+li {
+	font-size: 1em;
+	padding: .75em 0 .75em 0;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px #f2f2f2;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px #f2f2f2;
+}
