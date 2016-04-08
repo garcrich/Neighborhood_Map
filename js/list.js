@@ -1,4 +1,4 @@
-	// Array valuse = [title, lat, lng, streetAddress, id, visible, boolTest]
+	// Array values = [title, lat, lng, streetAddress, id, visible, boolTest]
 	var locations = [
 		 //Banking
 	     ["Idaho Central Credit Union - HQ",42.914059, -112.462819, "4400 Central Way", "loc0","",""],
