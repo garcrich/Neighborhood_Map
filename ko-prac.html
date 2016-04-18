@@ -1,0 +1,63 @@
+<html>
+<head>
+	<title>Example: View Model</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.4.0.js"></script>
+</head>
+
+<body>
+	<div id="list">
+		<div id="filter">
+			<input id="show" type="text" placeholder="search" name="filter">
+			<button id="filter" type="button" >Filter</button>
+		</div>
+	<input type="text" id="input" />
+
+	<ul>
+		<li class="thumb selectable arrow light" style="margin-bottom:-5px;"
+		data-image="http://cdn.tapquo.com/lungo/icon-144.png">
+		<strong class="name">Andrew</strong>
+		<small class="description">Hi!</small>
+		</li>
+		<li class="thumb selectable arrow light" style="margin-bottom:-5px;"
+		data-image="http://cdn.tapquo.com/lungo/icon-144.png">
+		<strong class="name">John</strong>
+		<small class="description">Hi!</small>
+		</li>
+		<li class="thumb selectable arrow light" style="margin-bottom:-5px;"
+		data-image="http://cdn.tapquo.com/lungo/icon-144.png">
+		<strong class="name">Peter</strong>
+		<small class="description">Hi!</small>
+		</li>
+</ul>
+
+<!-- 	<form>
+		<input id="show" type="text" placeholder="search" name="filter">
+		<button id="filter" type="button">Filter</button>
+	</form>
+<div data-bind="visible: shouldShowMessage">  -->
+<script type="text/javascript">
+    var viewModel = {
+        shouldShowMessage: ko.observable(true) // Message initially visible
+    };
+    document.getElementById('filter').addEventListener("click", myFunction);
+
+    var input = document.getElementById('show');
+	input.onkeyup = function () {
+    var filter = input.value.toUpperCase();
+    var lis = document.getElementsByTagName('li');
+    for (var i = 0; i < lis.length; i++) {
+        var name = lis[i].getElementsByClassName('name')[0].innerHTML;
+        if (name.toUpperCase().indexOf(filter) == 0)
+            lis[i].style.display = 'list-item';
+        else
+            lis[i].style.display = 'none';
+    }
+}
+
+    ko.applyBindings(viewModel);
+</script>
+</body>
+</html>
