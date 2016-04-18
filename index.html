@@ -14,6 +14,7 @@
 		#mapTypeView {
 			position: absolute;
 			right: 0;
+			top: 0;
 			z-index: 2;
 		}
 		#mapTypeView button{
@@ -33,17 +34,18 @@
 			height: 425px;
 			overflow: auto;
 			position: fixed;
-			top: 10px;
+			top: 68px;
 			left: 10px;
 			background-color: #505050;
 			border-radius: 5px;
-			-webkit-transition: left 1s; /* Safari */
-    		transition: left 1s;
 		}
-		#list li:nth-child(2n) {
-			color: #fff;
+		#hideList{
+			border: none;
+			z-index: 10;
+			position: fixed;
+			padding: 10px;
 		}
-		#loc_list, #filter button {
+		#loc_list {
 			color: #f2f2f2;
 		}
 		#filter {
@@ -67,6 +69,10 @@
 			font-size: 1em;
 			padding: .75em 0 .75em 0;
 		}
+		li:hover {
+			text-decoration: underline;
+			cursor: pointer;
+		}
 		::-webkit-scrollbar {
 		    width: 15px;
 		}
@@ -76,13 +82,6 @@
 		::-webkit-scrollbar-thumb {
 		    border-radius: 10px;
 		    -webkit-box-shadow: inset 0 0 6px #f2f2f2;
-		}
-		@media (max-width: 700px) {
-			#list {
-				left: -500px;
-				-webkit-transition: left 1s; /* Safari */
-    			transition: left 1s;
-			}
 		}
 	</style>
 </head>
@@ -95,6 +94,7 @@
 		<ul id="loc_list">
 		</ul>
 	</div>
+	<div id="hideList"><img src="img/hide_arrow.png"></div>
 
 	<!-- Select Map View -->
 	<div id="mapTypeView">
@@ -107,13 +107,22 @@
 	<!-- append map to page -->
 	<div id="mapDiv"></div>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="js/knock_out.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPZ_d4Z5NAabpUy_L-IImVaAVx12qlwLU&callback=initMap" ></script>
 <script type="text/javascript">
+	$("#hideList").on("click", function() {
+		$("#list").toggle('slide');
+		if ($("#hideList img").attr("src") === "img/hide_arrow.png"){
+			$("#hideList img").attr("src", "img/show_arrow.png" );
+		} else if ($("#hideList img").attr("src") === "img/show_arrow.png") {
+			$("#hideList img").attr("src", "img/hide_arrow.png");
+		}
+	});
     // So we can talk about the map a bunch before I call it - made global.
     var map;
     var infowindow = new google.maps.InfoWindow;
+    var lis = document.getElementsByTagName('li');
     var input = document.getElementById('input');
     var marker,
     	contentString;
@@ -206,39 +215,64 @@
 
     function makeMarker() {
     	for(var i = 0; i < locations.length; i++) {
-    				marker = new google.maps.Marker({
-    				position: {lat: locations[i].lat, lng: locations[i].lng},
-    				map: map,
-    				title: locations[i].title
-    			});
+			marker = new google.maps.Marker({
+			position: {lat: locations[i].lat, lng: locations[i].lng},
+			map: map,
+			title: locations[i].title
+		});
 
-			google.maps.event.addListener(marker, "click", (function(marker, i) {
-		       	return function() {
-		       		contentString = "<h3>" + locations[i].title + "<h3>" + "<h4>" + locations[i].streetAddress + "</h4>" + "<a href=" + "\"" +locations[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + locations[i].website + "</a>";
-	        	    infowindow.setContent(contentString);
-	    	       	infowindow.open(map, marker);
-   		    		if (marker.getAnimation() !== null) {
-						marker.setAnimation(null);
-					} else {
-						marker.setAnimation(google.maps.Animation.BOUNCE);
-					}
-       			}
-    		})(marker, i));
+		google.maps.event.addListener(marker, "click", (function(marker, i) {
+	       	return function() {
+	       		contentString = "<h3>" + locations[i].title + "<h3>" + "<h4>" + locations[i].streetAddress + "</h4>" + "<a href=" + "\"" +locations[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + locations[i].website + "</a>";
+        	    infowindow.setContent(contentString);
+    	       	infowindow.open(map, marker);
+		    		if (marker.getAnimation() !== null) {
+					marker.setAnimation(null);
+				} else {
+					marker.setAnimation(google.maps.Animation.BOUNCE);
+				}
+   			}
+		})(marker, i));
 
-			google.maps.event.addListener(marker, "click", (function(marker) {
-		       	return function() {
-   		    		if (marker.getAnimation() !== null) {
-						marker.setAnimation(null);
-					} else {
-						marker.setAnimation(google.maps.Animation.BOUNCE);
-					}
-       			}
-    		})(marker));
+		google.maps.event.addListener(marker, "click", (function(marker) {
+	       	return function() {
+		    		if (marker.getAnimation() !== null) {
+					marker.setAnimation(null);
+				} else {
+					marker.setAnimation(google.maps.Animation.BOUNCE);
+				}
+   			}
+		})(marker));
+
+/*
+		google.maps.event.addListener(newLi, "click", (function(marker) {
+	       	return function() {
+		    		if (marker.getAnimation() !== null) {
+					marker.setAnimation(null);
+				} else {
+					marker.setAnimation(google.maps.Animation.BOUNCE);
+				}
+   			}
+		})(marker));
+
+		google.maps.event.addListener(newLi, "click", (function(marker, i) {
+	       	return function() {
+	       		contentString = "<h3>" + locations[i].title + "<h3>" + "<h4>" + locations[i].streetAddress + "</h4>" + "<a href=" + "\"" +locations[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + locations[i].website + "</a>";
+        	    infowindow.setContent(contentString);
+    	       	infowindow.open(map, marker);
+		    		if (marker.getAnimation() !== null) {
+					marker.setAnimation(null);
+				} else {
+					marker.setAnimation(google.maps.Animation.BOUNCE);
+				}
+   			}
+		})(marker, i));*/
+
 		};
 	};
     function appendList() {
     	for (var i = 0; i < locations.length; i++) {
-    		var newLi = document.createElement("li");
+    		var	newLi = document.createElement("li");
     		var text = document.createTextNode(locations[i].title);
     		newLi.appendChild(text);
     		var ulnew = document.getElementsByTagName("ul");
@@ -249,7 +283,6 @@
 
 	input.onkeyup = function () {
 	    var filter = input.value.toUpperCase();
-	    var lis = document.getElementsByTagName('li');
 	    for (var i = 0; i < lis.length; i++) {
 	        var listVisible = lis[i].textContent;
 	        if (listVisible.toUpperCase().indexOf(filter) == 0)
