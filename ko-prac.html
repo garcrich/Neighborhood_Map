@@ -39,6 +39,39 @@
 	</form>
 <div data-bind="visible: shouldShowMessage">  -->
 <script type="text/javascript">
+var bears = ["grizzly", "polar", "brown"]
+var count = breaks.length
+var images = []
+
+function loadBears () {
+	if (!bear) {
+		console.log("All bears are done", images)
+		return
+	}
+	var bear = bears.shift()
+	var img = new Image()
+	img.onload = function () {
+		loadBears()
+	}
+	img.src = bear + ".jpg"
+	images.push(img)
+}
+bears.forEach(function (bear) {
+	var img = new Image()
+	img.onload = function () {
+
+	}
+	img.src = bear + ".jpg"
+})
+
+function next() {
+	count--
+	if(count < 1) {
+		bears.forEAch(function (bear {
+			docu.ent.body.appendChild(bear)
+		}))
+	}
+}
     var viewModel = {
         shouldShowMessage: ko.observable(true) // Message initially visible
     };
