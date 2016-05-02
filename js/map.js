@@ -69,7 +69,8 @@
             marker = new google.maps.Marker({
             position: {lat: locations[i].lat, lng: locations[i].lng},
             map: map,
-            title: locations[i].title
+            title: locations[i].title,
+
           });
       google.maps.event.addListener(marker, "click", (function(marker, i) {
             return function() {
