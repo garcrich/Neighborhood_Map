@@ -8,9 +8,9 @@
 </head>
 <body>
   <header>
-    <form action="#">
+    <!-- <form action="#">
       <input placeholder="Search…" type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
-    </form>
+    </form> -->
   </header>
   <div class="content">
     <ul data-bind="foreach: locations">
@@ -80,39 +80,40 @@
       }];
 
 
+// Perhaps used to extract info from array to place inside ViewModel
 var PlaceConstructor = function(dataObj){
   this.name = ko.observable(dataObj.name)
   // ...etc...
   // this includes all the things you want to track per location (whether it's a 'favorite' or not?)
 }
 
-var ViewModel = {
+var ViewModel = function(){
+  var self = this;
   // for clarity of scope
-  locations: ko.observableArray(locations),
 
-/*  self.createMarkers = function() {
+  //can't seem to access properties and methods in the console
+
+  var arrayOfAllMyLocations = ko.observableArray(locations);
+
+  self.createMarkers = function() {
     // make the markers, set event listeners, get infowindow content, etc
     // this may be pieced out into as many smaller functions as you think make sense
-  }*/
-
-  query: ko.observable(''),
-
-  search: function(value) {
-        //remove all current locations
-        ViewModel.locations.removeAll();
-        for(var x in locations) {
-      if(locations[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-        viewModel.locations.push(locations[x]);
-      }
-    }
-  }
-    // you will probably need to make additional functions to make this code modular and clean
-    // or to add your unique functionality
   }
 
-  ViewModel.query.subscribe(ViewModel.search);
+  self.filterLocations = function() {
+    // there are many ways to accomplish this, consider using
+    // http://opensoul.org/2011/06/23/live-search-with-knockoutjs/
+    // and
+    // ko.utils.arrayFilter()
+    // http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
+  }
 
-  ko.applyBindings(ViewModel);
+  // you will probably need to make additional functions to make this code modular and clean
+  // or to add your unique functionality
+}
+
+ko.applyBindings();
+
   </script>
 </body>
 </html>
