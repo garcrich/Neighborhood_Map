@@ -9,19 +9,17 @@
 <body>
   <header>
     <form action="#">
-      <input placeholder="Search…" type="search" name="q" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+      <input placeholder="Search…" type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
     </form>
   </header>
   <div class="content">
-    <ul data-bind="template: {name:'locations', foreach:locations}">
+    <ul data-bind="foreach: locations">
+      <li>
+        <span data-bind="text:name"></span>
+      </li>
     </ul>
   </div>
  <script src="js/knock_out.js"></script>
-   <script data-proofer-ignore type="text/html" id="locations">
-    <li>
-      <strong data-bind="text: name"></strong>
-    </li>
-  </script>
  <script>
       var locations = [{
       "name": "Idaho Central Credit Union - HQ",
@@ -81,25 +79,40 @@
       "website": "https://railswestcu.org"
       }];
 
-    var viewModel = {
-      var self = this
-      self.locations = ko.observableArray(locations),
 
-      query: ko.observable(''),
+var PlaceConstructor = function(dataObj){
+  this.name = ko.observable(dataObj.name)
+  // ...etc...
+  // this includes all the things you want to track per location (whether it's a 'favorite' or not?)
+}
 
-      search: function(value) {
-        viewModel.locations.removeAll();
-        for(var i; i < locations.length; i++) {
-          if(locations[i].name.toLowerCase().indexOf(name.toLowerCase()) >= 0) {
-            viewModel.locations.push(locations[i].name);
-          }
-        }
+var ViewModel = {
+  // for clarity of scope
+  locations: ko.observableArray(locations),
+
+/*  self.createMarkers = function() {
+    // make the markers, set event listeners, get infowindow content, etc
+    // this may be pieced out into as many smaller functions as you think make sense
+  }*/
+
+  query: ko.observable(''),
+
+  search: function(value) {
+        //remove all current locations
+        ViewModel.locations.removeAll();
+        for(var x in locations) {
+      if(locations[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+        viewModel.locations.push(locations[x]);
       }
-    };
+    }
+  }
+    // you will probably need to make additional functions to make this code modular and clean
+    // or to add your unique functionality
+  }
 
-    viewModel.query.subscribe(viewModel.search);
+  ViewModel.query.subscribe(ViewModel.search);
 
-    ko.applyBindings(viewModel);
+  ko.applyBindings(ViewModel);
   </script>
 </body>
 </html>

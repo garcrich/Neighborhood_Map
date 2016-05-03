@@ -92,17 +92,19 @@ var ViewModel = function(){
             title: locations[i].title,
             animation: google.maps.Animation.DROP,
           });
+
       google.maps.event.addListener(marker, "click", (function(marker, i) {
             return function() {
               contentString = "<h3>" + locations[i].title + "<h3>" + "<h4>" + locations[i].streetAddress + "</h4>" + "<a href=" + "\"" +locations[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + locations[i].website + "</a>";
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
-            };
 
             if (marker.getAnimation() !== null) {
             marker.setAnimation(null);
           } else {
             marker.setAnimation(google.maps.Animation.BOUNCE);
+          }
+
           }
         })(marker, i));
       }
