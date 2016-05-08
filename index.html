@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="initial-scale=1.0, user scalable=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>neighborhood map</title>
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 
 <body>
+
+	<!-- Navigation -->
+	<div id="search">
+	        <input type="text" placeholder="Search" data-bind="textInput:searchTerm, valueUpdate: 'keyup'">
+	    <table>
+	        <tbody data-bind="{foreach:banks}">
+	        <tr>
+	            <td data-bind="{text:title}"></td>
+	        </tr>
+	        </tbody>
+	    </table>
+	</div>
 
 	<!-- Select Map View -->
 	<div id="mapTypeView">
@@ -20,11 +33,12 @@
 	<div id="mapDiv"></div>
 
 
+<!-- libraries -->
 <script src="js/knock_out.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPZ_d4Z5NAabpUy_L-IImVaAVx12qlwLU&callback=initMap" ></script>
-<script src="js/map-refactored.js"></script>
-
-</script>
+<script type="text/javascript" src="js/model/product.js"></script>
+<script type="text/javascript" src="js/viewmodel.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPZ_d4Z5NAabpUy_L-IImVaAVx12qlwLU&callback=initMap"></script>
+<script src="js/map.js"></script>
 
 
 
