@@ -61,7 +61,9 @@ var marker;
 
 var PlaceConstructor = function(dataObj){
   this.name = ko.observable(dataObj.title);
-  // this includes all the things you want to track per location (whether it's a 'favorite' or not?)
+  var banks = ko.oservableArray(
+
+  )
 }
 
 var viewModel = function vmInit() {
@@ -111,6 +113,11 @@ var viewModel = function vmInit() {
         searchTerm: searchTerm,
         banks: filteredBanks,
     };
+
+};
+
+ko.applyBindings(viewModel);
+
   function makeMarkers() {
       for(var i = 0; i < banks.length; i++) {
             marker = new google.maps.Marker({
@@ -154,8 +161,4 @@ var viewModel = function vmInit() {
 
     makeMarkers();
   }
-
   google.maps.event.addDomListener(window, "load", initMap);
-};
-
-ko.applyBindings(viewModel);
