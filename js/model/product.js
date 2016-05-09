@@ -1,7 +1,8 @@
-var Location = function (title,latitude,longitude,streetAddress,website) {
+var Location = function (koTitle,title,latitude,longitude,streetAddress,website) {
     "use strict";
     var
-        _title = ko.observable(title),
+        _koTitle = ko.observable(koTitle),
+        _title = title,
         _latitude = latitude,
         _longitude = longitude,
         _streetAddress = streetAddress,
@@ -9,7 +10,8 @@ var Location = function (title,latitude,longitude,streetAddress,website) {
     ;
 
     return {
-        title: _title,
+        koTitle: _koTitle,
+        title: title,
         longitude: _longitude,
         latitude: _latitude,
         streetAddress: _streetAddress,
