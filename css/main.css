@@ -11,7 +11,7 @@ html, body, #filter input, #filter button {
     top: 20px;
     left: 20px;
     max-width: 250px;
-    background-color: #282828;
+    background-color: rgba(40,40,40, .85);
     border-radius: 8px;
 }
 #search input {
@@ -23,23 +23,5 @@ html, body, #filter input, #filter button {
 }
 #search td {
     padding-bottom: 15px;
-    color: #fff;
-}
-
-#mapTypeView {
-    position: absolute;
-    z-index: 2;
-    top: 20px;
-    right: 20px;
-}
-
-#mapTypeView button {
-    display: block;
-    margin-bottom: 10px;
-    padding: 10px;
-    width: 90px;
-    border: none;
-    border-radius: 3px;
-    background-color: #505050;
     color: #fff;
 }

@@ -2,10 +2,10 @@ var Location = function (title,latitude,longitude,streetAddress,website) {
     "use strict";
     var
         _title = ko.observable(title),
-        _latitude = ko.observable(latitude),
-        _longitude = ko.observable(longitude),
-        _streetAddress = ko.observable(streetAddress),
-        _website = ko.observable(website)
+        _latitude = latitude,
+        _longitude = longitude,
+        _streetAddress = streetAddress,
+        _website = website
     ;
 
     return {

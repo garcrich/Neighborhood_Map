@@ -64,22 +64,64 @@ var PlaceConstructor = function(dataObj){
   // this includes all the things you want to track per location (whether it's a 'favorite' or not?)
 }
 
-var ViewModel = function(){
-  var self = this;
-  // for clarity of scope
-}
+var viewModel = function vmInit() {
+    "use strict";
 
+    var banks = ko.observableArray([
+        //var location = function (title,latitude,longitude,streetAddress,website)
+        new Location("Idaho Central Credit Union - HQ", 42.914059, -112.462819, "4400 Central Way", "https://www.iccu.com/"),
+        new Location("DL Evans Bank", 42.907624, -112.465672, "4080 Yellowstone Ave", "https://www.dlevans.com/"),
+        new Location("Wells Fargo", 42.909370, -112.466802, "4195 Yellowstone Ave", "https://www.wellsfargo.com/"),
+        new Location("Idaho Central Credit Union - Chubbuck Branch", 42.915882, -112.466823, "4537 Yellowstone Ave", "https://www.iccu.com/"),
+        new Location("Mountain America Credit Union", 42.911453, -112.464667,  "152 Bullock St", "https://www.macu.com"),
+        new Location("Idaho State University Credit Union", 42.9227200, -112.4658335, "4914 Yellowstone Ave", "https://www.isucu.org/"),
+        new Location("Advantage Plus Credit Union", 42.920881, -112.468284, "150 W Chubbuck Rd", "https://advantagepluscreditunion.com"),
+        new Location("Pocatello Railroad Federal Credit", 42.918957, -112.465726, "4708 Yellowstone Ave", "https://railswestcu.org")
+    ]);
+
+    var searchTerm = ko.observable("");
+
+    var filteredBanks = ko.computed(function () {
+        //if banks is empty return empty array
+        if (!banks()) {
+            return [];
+        }
+        var filter = searchTerm().toLowerCase();
+        //if filter is empty return all the catalog
+        if (!filter) {
+            return banks();
+        }
+        //filter data
+        var filtered = ko.utils.arrayFilter(banks(), function (item) {
+            var fields = ["title"]; //we can filter several properties if needed
+            var i = fields.length;
+            while (i--) {
+                var prop = fields[i];
+                var strProp = ko.unwrap(item[prop]).toLowerCase();
+                if (strProp.indexOf(filter) !== -1) {
+                    return true;
+                }
+            }
+            return false;
+        });
+        return filtered;
+    });
+
+    return {
+        searchTerm: searchTerm,
+        banks: filteredBanks,
+    };
   function makeMarkers() {
-      for(var i = 0; i < locations.length; i++) {
+      for(var i = 0; i < banks.length; i++) {
             marker = new google.maps.Marker({
-            position: {lat: locations[i].lat, lng: locations[i].lng},
+            position: {lat: banks[i].lat, lng: banks[i].lng},
             map: map,
-            title: locations[i].title,
+            title: banks[i].title,
           });
 
       google.maps.event.addListener(marker, "click", (function(marker, i) {
             return function() {
-              contentString = "<h3>" + locations[i].title + "<h3>" + "<h4>" + locations[i].streetAddress + "</h4>" + "<a href=" + "\"" +locations[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + locations[i].website + "</a>";
+              contentString = "<h3>" + banks[i].title + "<h3>" + "<h4>" + banks[i].streetAddress + "</h4>" + "<a href=" + "\"" +locations[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + locations[i].website + "</a>";
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
 
@@ -93,21 +135,6 @@ var ViewModel = function(){
           }
         })(marker, i));
       }
-  };
-
-  function addButtons() {
-    document.getElementById('btnTerrain').addEventListener('click', function() {
-      map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-    });
-    document.getElementById('btnSatellite').addEventListener('click', function() {
-      map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-    });
-    document.getElementById('btnRoadmap').addEventListener('click', function() {
-      map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-    });
-    document.getElementById('btnHybrid').addEventListener('click', function() {
-      map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-    })
   };
 
   function initMap() {
@@ -127,5 +154,8 @@ var ViewModel = function(){
 
     makeMarkers();
   }
-  addButtons();
+
   google.maps.event.addDomListener(window, "load", initMap);
+};
+
+ko.applyBindings(viewModel);
