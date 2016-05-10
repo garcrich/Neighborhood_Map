@@ -15,6 +15,16 @@ var banks = ko.observableArray([
     new Location("Pocatello Railroad Federal Credit", "Pocatello Railroad Federal Credit", 42.918957, -112.465726, "4708 Yellowstone Ave", "https://railswestcu.org", true)
 ]);
 
+//Display or hide list
+function toggleList() {
+  var listDisplay = document.getElementById("search");
+  listDisplay.style.display = (listDisplay.style.display != "none" ? "none" : "" );
+  var hideList_Message = document.getElementById("hideList");
+  hideList_Message.innerHTML = (hideList_Message.innerHTML != "Hide List" ? "Hide List" : "Show List");
+}
+
+document.getElementById("hideList").addEventListener("click", toggleList);
+
 var viewModel = function vmInit() {
     "use strict";
 

@@ -8,7 +8,7 @@ html, body, #filter input, #filter button {
 #search {
     position: absolute;
     z-index: 2;
-    top: 20px;
+    top: 65px;
     left: 20px;
     max-width: 250px;
     background-color: rgba(40,40,40, .85);
@@ -25,3 +25,17 @@ html, body, #filter input, #filter button {
     padding-bottom: 15px;
     color: #fff;
 }
+#hideList {
+    position: absolute;
+    z-index: 2;
+    top: 8px;
+    left: 20px;
+    letter-spacing: .5px;
+    border: none;
+    padding: 14px;
+    background-color: rgb(40,40,40);
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+}
+
