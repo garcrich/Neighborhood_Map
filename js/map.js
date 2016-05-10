@@ -1,6 +1,7 @@
-var map;
-var infowindow = new google.maps.InfoWindow;
-var marker;
+var map,
+    infowindow = new google.maps.InfoWindow,
+    marker,
+    allMarkers = [];
 
 
 var banks = ko.observableArray([
@@ -15,7 +16,7 @@ var banks = ko.observableArray([
     new Location("Pocatello Railroad Federal Credit", "Pocatello Railroad Federal Credit", 42.918957, -112.465726, "4708 Yellowstone Ave", "https://railswestcu.org", true)
 ]);
 
-//Display or hide list
+//display or hide list
 function toggleList() {
   var listDisplay = document.getElementById("search");
   listDisplay.style.display = (listDisplay.style.display != "none" ? "none" : "" );
@@ -60,7 +61,6 @@ var viewModel = function vmInit() {
 
 ko.applyBindings(viewModel);
 
-var allMarkers = [];
 //map markers
 function makeMarkers() {
   for(var i = 0; i < banks().length; i++) {
@@ -69,8 +69,9 @@ function makeMarkers() {
     map: map,
     title: banks()[i].title,
   });
-
   allMarkers.push(marker); //push markers because Google Maps does not support this feature
+
+
 
   google.maps.event.addListener(allMarkers[i], "click", (function(allMarkers, i) {
     return function() {
@@ -90,23 +91,28 @@ function makeMarkers() {
   };
 };
 
-  function initMap() {
+function initMap() {
 
-    var mapOptions = {
-      zoom: 15,
-      center: {lat: 42.91255, lng: -112.466269},
-      disableDefaultUI: true,
-      zoomControl: true,
-      panControl: true,
-      scaleControl: true,
-      streetViewControl: true,
-      overviewMapControl: true
-    };
-    map = new google.maps.Map(document.getElementById("mapDiv"), mapOptions);
-    var initialCenter = mapOptions.center;
-    var initialZoom = mapOptions.zoom;
+  var mapOptions = {
+    zoom: 15,
+    center: {lat: 42.91255, lng: -112.466269},
+    disableDefaultUI: true,
+    zoomControl: true,
+    panControl: true,
+    scaleControl: true,
+    streetViewControl: true,
+    overviewMapControl: true
+  };
+  map = new google.maps.Map(document.getElementById("mapDiv"), mapOptions);
+  var initialCenter = mapOptions.center;
+  var initialZoom = mapOptions.zoom;
 
-    makeMarkers();
+  makeMarkers();
 
-  }
-  google.maps.event.addDomListener(window, "load", initMap);
+  //only area where for loop is recognized. Why is that?
+/*  for (var i = 0; i < allMarkers.length; i++) {
+    allMarkers[i].setMap(null);
+   };*/
+};
+
+google.maps.event.addDomListener(window, "load", initMap);
