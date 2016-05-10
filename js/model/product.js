@@ -1,12 +1,14 @@
-var Location = function (koTitle,title,latitude,longitude,streetAddress,website) {
+//revealing module pattern
+var Location = function (koTitle,title,latitude,longitude,streetAddress,website,setVisible) {
     "use strict";
     var
         _koTitle = ko.observable(koTitle),
         _title = title,
-        _latitude = latitude,
-        _longitude = longitude,
+        _latitude = ko.observable(latitude),
+        _longitude = ko.observable(longitude),
         _streetAddress = streetAddress,
-        _website = website
+        _website = website,
+        _setVisible = ko.observable(setVisible);
     ;
 
     return {
@@ -15,6 +17,7 @@ var Location = function (koTitle,title,latitude,longitude,streetAddress,website)
         longitude: _longitude,
         latitude: _latitude,
         streetAddress: _streetAddress,
-        website: _website
+        website: _website,
+        setVisible: _setVisible
     };
 };
