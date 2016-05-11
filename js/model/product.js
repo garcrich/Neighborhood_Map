@@ -4,8 +4,8 @@ var Location = function (koTitle,title,latitude,longitude,streetAddress,website,
     var
         _koTitle = ko.observable(koTitle),
         _title = title,
-        _latitude = latitude,
-        _longitude = longitude,
+        _latitude = ko.observable(latitude),
+        _longitude = ko.observable(longitude),
         _streetAddress = streetAddress,
         _website = website,
         _setVisible = ko.observable(setVisible);

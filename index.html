@@ -8,18 +8,18 @@
 </head>
 
 <body>
-
 	<!-- Search List -->
 	<div>
 		<button id="hideList">Hide List</button>
 	</div>
 
+	<!-- Navigation -->
 	<div id="search">
 	        <input type="text" placeholder="Search" data-bind="textInput:searchTerm, valueUpdate: 'keyup'">
 	    <table>
 	        <tbody data-bind="{foreach:banks}">
-	        <tr data-bind="attr: {id: setVisible}">
-	            <td data-bind="{text: koTitle}"></td>
+	        <tr>
+	            <td data-bind="{text:title}"></td>
 	        </tr>
 	        </tbody>
 	    </table>
@@ -31,8 +31,8 @@
 <!-- libraries -->
 <script src="js/knock_out.js"></script>
 <script type="text/javascript" src="js/model/product.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPZ_d4Z5NAabpUy_L-IImVaAVx12qlwLU&callback=initMap"></script>
 <script src="js/map.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPZ_d4Z5NAabpUy_L-IImVaAVx12qlwLU&callback=initMap" async></script>
 
 
 
