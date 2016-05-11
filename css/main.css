@@ -33,7 +33,7 @@ html, body, #filter input, #filter button {
     letter-spacing: .5px;
     border: none;
     padding: 14px;
-    background-color: rgb(40,40,40);
+    background-color: rgba(40,40,40, .85);
     border-radius: 8px;
     color: #fff;
     cursor: pointer;
