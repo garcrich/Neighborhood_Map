@@ -82,6 +82,7 @@ function makeMarkers(filtered) {
     marker = new google.maps.Marker({
     position: {lat: filtered[i].latitude(), lng: filtered[i].longitude()},
     map: map,
+    animation: null,
     title: filtered[i].title,
   });
 

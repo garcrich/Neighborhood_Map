@@ -1,8 +1,0 @@
-
-Consumer Key	KGDWTMlhGG0tzXUIumTxdA
-
-Consumer Secret	nRkRGVF-aiUQ_P2drJBrhMK6vIM
-
-Token	Bmj5QjtwVEFZzwVeAynD42QH8cwjA1lI
-
-Token Secret	5SXqXcnXi62L5rFn00_LMY0ptM8
