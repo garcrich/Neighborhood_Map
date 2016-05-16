@@ -3,15 +3,15 @@ var infowindow = new google.maps.InfoWindow;
 var marker;
 
 //revealing module pattern
-var banks = ko.observableArray([
+var Coffee_shops = ko.observableArray([
     //var location = function (koTitle, title,latitude,longitude,streetAddress,website a.k.a facebook page)
-    new Location("CoHo Coffee", "CoHo Coffee", 42.8598574,  -112.4373139, "904 S 4th Ave", "https://www.facebook.com/Co.Ho.TheSmartBar/?fref=ts"),
-    new Location("College Market Coffeehouse", "College Market Coffeehouse", 42.864709, -112.4357415, "604 S 8th Ave", "https://www.facebook.com/The-College-Market-156572444544283/?fref=ts"),
-    new Location("Starbucks", "Starbucks", 42.8624186, -112.4430602, "330 E Benton St", "https://www.facebook.com/Starbucks-134135709964883/?fref=ts"),
-    new Location("Cafe Tuscano", "Cafe Tuscano", 42.8768060,-112.4214400, "2231 E Center St", "https://www.facebook.com/cafetuscanoinpocatello/?fref=ts"),
-    new Location("Rocky Mountain Ministries", "Rocky Mountain Ministries", 42.8890690,-112.4369930,  "845 Hyde Ave", "https://www.facebook.com/RockyMountainMin/?fref=ts"),
-    new Location("Double Shot Coffee Roasters & Donuts", "Double Shot Coffee Roasters & Donuts", 42.8873730,-112.4495730, "215 E Cedar St", "https://www.facebook.com/Double-Shot-Coffee-Roasters-Donuts-Hut-on-Jefferson-1046677665403362/?fref=nf"),
-    new Location("Java Express", "Java Express", 42.8871620,-112.4530680, "675 Yellowstone Ave", "https://www.facebook.com/pages/Java-Express/977154642305992")
+    new Location("Salt Lake Roasting Co", "Salt Lake Roasting Co", 40.7603327, -111.8817539, "320 E 400 S", "http://www.roasting.com/"),
+    new Location("Blue Copper Coffee Room", "Blue Copper Coffee Room", 40.7497675, -111.8999455, "179 W 900 S", "http://bluecopperslc.com/"),
+    new Location("Publik Coffee Roasters", "Publik Coffee Roasters", 40.747846,-111.893512, "975 S W Temple", "https://www.publikcoffee.com/"),
+    new Location("Alchemy Coffee", "Alchemy Coffee", 40.733139,-111.879873, "390 E 1700 S", "http://www.alchemycoffee.com/"),
+    new Location("Nostalgia", "Nostalgia", 40.766796,-111.883631,  " 248 E 100 S", "http://nostalgiacoffee.com/"),
+    new Location("Millcreek Coffee Roasters", "Millcreek Coffee Roasters", 40.754951,-111.890677, "657 Main St", "http://www.millcreekcoffee.com/"),
+    new Location("The Rose Establishment", "The Rose Establishment",  40.764005,-111.902221, "235 400 W", "http://www.theroseestb.com/")
 ]);
 
 //display or hide list
@@ -24,23 +24,23 @@ function toggleList() {
 
 document.getElementById("hideList").addEventListener("click", toggleList);
 
-//var filtBanks = ko.observableArray([]);
+//var filtCoffee_shops = ko.observableArray([]);
 
 var viewModel = function vmInit() {
     "use strict";
 
     var searchTerm = ko.observable("");
 
-    var filteredBanks = ko.computed(function () {
+    var filteredCoffee_shops = ko.computed(function () {
         var filter = searchTerm().toLowerCase();
         if (!filter) {
-          makeMarkers(banks());
-            return banks();
+          makeMarkers(Coffee_shops());
+            return Coffee_shops();
         } else {
 
         }
         //filter data
-        var filtered = ko.utils.arrayFilter(banks(), function (item) {
+        var filtered = ko.utils.arrayFilter(Coffee_shops(), function (item) {
             var fields = ["koTitle"]; //we can filter several properties if needed
             var i = fields.length;
             while (i--) {
@@ -59,25 +59,25 @@ var viewModel = function vmInit() {
 
     return {
         searchTerm: searchTerm,
-        banks: filteredBanks,
+        Coffee_shops: filteredCoffee_shops,
     };
 };
 
 ko.applyBindings(viewModel);
-  banks.allMarkers = [];
-  var banks_allMarkers = banks.allMarkers;
+  Coffee_shops.allMarkers = [];
+  var Coffee_shops_allMarkers = Coffee_shops.allMarkers;
 //map markers
 function makeMarkers(filtered) {
-  if (banks_allMarkers) {
-    banks_allMarkers.forEach(function(marker){
+  if (Coffee_shops_allMarkers) {
+    Coffee_shops_allMarkers.forEach(function(marker){
     marker.setVisible(false)
   })
 
-  banks_allMarkers = [];
+  Coffee_shops_allMarkers = [];
   if (!filtered) {
-    filtered = banks();
+    filtered = Coffee_shops();
   }
-  console.log('banks().length :'+ filtered.length);
+  console.log('Coffee_shops().length :'+ filtered.length);
   for(var i = 0; i < filtered.length; i++) {
     marker = new google.maps.Marker({
     position: {lat: filtered[i].latitude(), lng: filtered[i].longitude()},
@@ -86,23 +86,23 @@ function makeMarkers(filtered) {
     title: filtered[i].title,
   });
 
-  banks_allMarkers.push(marker); //push markers because Google Maps does not support this feature
+  Coffee_shops_allMarkers.push(marker); //push markers because Google Maps does not support this feature
 
-  google.maps.event.addListener(banks_allMarkers[i], "click", (function(banks_allMarkers, i) {
+  google.maps.event.addListener(Coffee_shops_allMarkers[i], "click", (function(Coffee_shops_allMarkers, i) {
     return function() {
       contentString = "<h3>" + filtered[i].title + "</h3>" + "<h3>" + filtered[i].streetAddress + "</h3>" + "<h4>" + "facebook:" + "</h4>" + "<a href=" + "\"" +filtered[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + filtered[i].website + "</a>";
       infowindow.setContent(contentString);
-      infowindow.open(map, banks_allMarkers[i]);
+      infowindow.open(map, Coffee_shops_allMarkers[i]);
 
-      if (banks_allMarkers[i].getAnimation() !== null) {
-       banks_allMarkers[i].setAnimation(null);
-       infowindow.close(map, banks_allMarkers[i]);
+      if (Coffee_shops_allMarkers[i].getAnimation() !== null) {
+       Coffee_shops_allMarkers[i].setAnimation(null);
+       infowindow.close(map, Coffee_shops_allMarkers[i]);
       } else  {
-        banks_allMarkers[i].setAnimation(google.maps.Animation.BOUNCE);
+        Coffee_shops_allMarkers[i].setAnimation(google.maps.Animation.BOUNCE);
       }
 
       }
-    })(banks_allMarkers, i));
+    })(Coffee_shops_allMarkers, i));
   };
   }
 
@@ -112,7 +112,7 @@ function makeMarkers(filtered) {
 
     var mapOptions = {
       zoom: 14,
-      center: {lat: 42.8768475, lng: -112.4507077},
+      center: {lat: 40.75193, lng: -111.888198},
       disableDefaultUI: true,
       zoomControl: true,
       panControl: true,
