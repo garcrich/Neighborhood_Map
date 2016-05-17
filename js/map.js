@@ -1,10 +1,11 @@
+"use strict"
 var map;
 var infowindow = new google.maps.InfoWindow;
 var marker;
 
 //revealing module pattern
 var Coffee_shops = ko.observableArray([
-    //var location = function (koTitle, title,latitude,longitude,streetAddress,website a.k.a facebook page)
+    //var location = function (koTitle, title,latitude,longitude,streetAddress,website)
     new Location("Salt Lake Roasting Co", "Salt Lake Roasting Co", 40.7603327, -111.8817539, "320 E 400 S", "http://www.roasting.com/"),
     new Location("Blue Copper Coffee Room", "Blue Copper Coffee Room", 40.7497675, -111.8999455, "179 W 900 S", "http://bluecopperslc.com/"),
     new Location("Publik Coffee Roasters", "Publik Coffee Roasters", 40.747846,-111.893512, "975 S W Temple", "https://www.publikcoffee.com/"),
@@ -90,7 +91,7 @@ function makeMarkers(filtered) {
 
   google.maps.event.addListener(Coffee_shops_allMarkers[i], "click", (function(Coffee_shops_allMarkers, i) {
     return function() {
-      contentString = "<h3>" + filtered[i].title + "</h3>" + "<h3>" + filtered[i].streetAddress + "</h3>" + "<h4>" + "facebook:" + "</h4>" + "<a href=" + "\"" +filtered[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + filtered[i].website + "</a>";
+      contentString = "<h3>" + filtered[i].title + "</h3>" + "<h3>" + filtered[i].streetAddress + "</h3>" + "<img src='" +  + "'>" + "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" +filtered[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + filtered[i].website + "</a>";
       infowindow.setContent(contentString);
       infowindow.open(map, Coffee_shops_allMarkers[i]);
 

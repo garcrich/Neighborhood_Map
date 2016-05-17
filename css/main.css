@@ -5,6 +5,11 @@ html, body, #filter input, #filter button {
     margin: 0;
     padding: 0;
 }
+.flickr_test {
+    margin: 10px;
+    border: 2px solid;
+}
+
 #search {
     position: absolute;
     z-index: 2;
