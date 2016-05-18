@@ -91,7 +91,7 @@ function makeMarkers(filtered) {
 
   google.maps.event.addListener(Coffee_shops_allMarkers[i], "click", (function(Coffee_shops_allMarkers, i) {
     return function() {
-      contentString = "<h3>" + filtered[i].title + "</h3>" + "<h3>" + filtered[i].streetAddress + "</h3>" + "<img src='" +  + "'>" + "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" +filtered[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + filtered[i].website + "</a>";
+      var contentString = "<h3>" + filtered[i].title + "</h3>" + "<h3>" + filtered[i].streetAddress + "</h3>" + "<img src='" +  + "'>" + "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" +filtered[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + filtered[i].website + "</a>";
       infowindow.setContent(contentString);
       infowindow.open(map, Coffee_shops_allMarkers[i]);
 
