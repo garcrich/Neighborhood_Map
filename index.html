@@ -1,41 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>neighborhood map</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Richard Garcia">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>neighborhood map</title>
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/slider.css">
 </head>
 
 <body>
-	<!-- Search List -->
-	<div>
-		<button id="hideList">Hide List</button>
-	</div>
 
-	<!-- Navigation -->
-	<div id="search">
-	        <input type="text" placeholder="Search" data-bind="textInput:searchTerm, valueUpdate: 'keyup'">
-	    <table>
-	        <tbody data-bind="{foreach:Coffee_shops}">
-	        <tr>
-	            <td data-bind="{text:title}"></td>
-	        </tr>
-	        </tbody>
-	    </table>
-	</div>
-	<!-- append map to page -->
-	<div id="mapDiv"></div>
+    <!-- Navigation -->
+    <div>
+        <button id="hideList">Hide List</button>
+        <button id="showCoffee">Local Photos!</button>
+    </div>
+
+    <!-- Search List -->
+    <div id="search">
+        <input type="text" placeholder="Search" data-bind="textInput:searchTerm, valueUpdate: 'keyup'">
+        <table>
+            <tbody data-bind="{foreach:Coffee_shops}">
+                <tr>
+                    <td data-bind="{text:title}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- image gallery -->
+    <div id="container">
+        <button id="hide_slider">Close</button>
+        <img id="img" src="">
+        <img onclick="changeImage(-1)" id="left" class="left" src="img/left_arrow.png">
+        <img onclick="changeImage(1)" id="right" class="right" src="img/right_arrow.png">
+    </div>
+    <!-- append map to page -->
+    <div id="mapDiv"></div>
 
 
-<!-- libraries -->
-<script src="js/knock_out.js"></script>
-<script type="text/javascript" src="js/model/product.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPZ_d4Z5NAabpUy_L-IImVaAVx12qlwLU&callback=initMap"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<script src="js/map.js"></script>
-
-
-
+    <!-- libraries -->
+    <script src="js/knock_out.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPZ_d4Z5NAabpUy_L-IImVaAVx12qlwLU&callback=initMap"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="js/map.js" async></script>
+    <script type="text/javascript" src="js/slider.js"></script>
 </body>
+
 </html>

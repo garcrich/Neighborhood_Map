@@ -1,7 +1,12 @@
-html, body, #mapDiv {
+html,
+body,
+#mapDiv {
     height: 100%
 }
-html, body, #filter input, #filter button {
+html,
+body,
+#filter input,
+#filter button {
     margin: 0;
     padding: 0;
 }
@@ -9,14 +14,13 @@ html, body, #filter input, #filter button {
     margin: 10px;
     border: 2px solid;
 }
-
 #search {
     position: absolute;
     z-index: 2;
     top: 65px;
     left: 20px;
     max-width: 250px;
-    background-color: rgba(40,40,40, .85);
+    background-color: rgba(40, 40, 40, .85);
     border-radius: 8px;
 }
 #search input {
@@ -30,7 +34,8 @@ html, body, #filter input, #filter button {
     padding-bottom: 15px;
     color: #fff;
 }
-#hideList {
+#hideList,
+#showCoffee {
     position: absolute;
     z-index: 2;
     top: 8px;
@@ -38,8 +43,11 @@ html, body, #filter input, #filter button {
     letter-spacing: .5px;
     border: none;
     padding: 14px;
-    background-color: rgb(40,40,40);
+    background-color: rgb(40, 40, 40);
     border-radius: 8px;
     color: #fff;
     cursor: pointer;
+}
+#showCoffee {
+    left: 127px;
 }
