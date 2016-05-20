@@ -58,6 +58,6 @@ function changeImage(x) {
         imageNumber = imageLength;
     }
 
-    console.log(image[imageNumber]);
+    //console.log(image[imageNumber]);
     document.getElementById("img").src = image[imageNumber];
 }

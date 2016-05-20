@@ -141,7 +141,6 @@ function makeMarkers(filtered) {
             })(Coffee_shops_allMarkers, i));
         }
     }
-
 }
 
 //initialize google Map
@@ -165,4 +164,5 @@ function initMap() {
     map = new google.maps.Map(document.getElementById("mapDiv"), mapOptions);
     makeMarkers();
 }
-google.maps.event.addDomListener(window, "load", initMap);
+
+initMap();
