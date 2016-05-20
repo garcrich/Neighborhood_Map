@@ -99,7 +99,7 @@ function makeMarkers(filtered) {
         Coffee_shops_allMarkers.forEach(function(marker) {
             marker.setVisible(false);
         });
-
+        Coffee_shops_allMarkers = [];
         if (!filtered) {
             filtered = Coffee_shops();
         }
