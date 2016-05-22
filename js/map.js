@@ -2,6 +2,11 @@ var map;
 var infowindow = new google.maps.InfoWindow();
 var marker;
 
+var self = this;
+self.showList = ko.observable(true);
+    self.toggleList = function() {
+        self.showList(!self.showList());
+    }
 
 //revealing module pattern for Locations
 var Location = function(koTitle, title, latitude, longitude, streetAddress, website, setVisible) {
@@ -37,19 +42,8 @@ var Coffee_shops = ko.observableArray([
     new Location("The Rose Establishment", "The Rose Establishment", 40.764005, -111.902221, "235 400 W", "http://www.theroseestb.com/")
 ]);
 
-//display or hide locations list
-function toggleList() {
-    var listDisplay = document.getElementById("search");
-    listDisplay.style.display = (listDisplay.style.display != "none" ? "none" : "");
-    var hideList_Message = document.getElementById("hideList");
-    hideList_Message.innerHTML = (hideList_Message.innerHTML != "Hide List" ? "Hide List" : "Show List");
-}
-
-document.getElementById("hideList").addEventListener("click", toggleList);
-
 //ko filter
 var viewModel = function vmInit() {
-    "use strict";
 
     var searchTerm = ko.observable("");
 
@@ -125,7 +119,7 @@ function makeMarkers(filtered) {
             google.maps.event.addListener(Coffee_shops_allMarkers[i], "click", (function(Coffee_shops_allMarkers, i) {
                 return function() {
                     //content for info window
-                    var contentString = "<h2>" + filtered[i].title + "</h2>" + "<h3>" + filtered[i].streetAddress + "</h3>" + "<img src='" + "'>" + "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" + filtered[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + filtered[i].website + "</a>";
+                    var contentString = "<h2>" + filtered[i].title + "</h2>" + "<h3>" + filtered[i].streetAddress + "</h3>" + "<img src='" + image[i] + "'>" + "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" + filtered[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + filtered[i].website + "</a>";
                     //set info window information
                     infowindow.setContent(contentString);
                     infowindow.open(map, Coffee_shops_allMarkers[i]);
@@ -135,6 +129,7 @@ function makeMarkers(filtered) {
                         infowindow.close(map, Coffee_shops_allMarkers[i]);
                     } else {
                         Coffee_shops_allMarkers[i].setAnimation(google.maps.Animation.BOUNCE);
+                        setTimeout(function(){Coffee_shops_allMarkers[i].setAnimation(null);}, 700);
                     }
 
                 };

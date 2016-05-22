@@ -3,6 +3,7 @@ body,
 #mapDiv {
     height: 100%
 }
+
 html,
 body,
 #filter input,
@@ -10,10 +11,12 @@ body,
     margin: 0;
     padding: 0;
 }
+
 .flickr_test {
     margin: 10px;
     border: 2px solid;
 }
+
 #search {
     position: absolute;
     z-index: 2;
@@ -23,17 +26,21 @@ body,
     background-color: rgba(40, 40, 40, .85);
     border-radius: 8px;
 }
+
 #search input {
     height: 25px;
     margin: 20px;
 }
+
 #search table {
     margin: 0 20px 0 20px;
 }
+
 #search td {
     padding-bottom: 15px;
     color: #fff;
 }
+
 #hideList,
 #showCoffee {
     position: absolute;
@@ -48,6 +55,8 @@ body,
     color: #fff;
     cursor: pointer;
 }
+
 #showCoffee {
+    display: none;
     left: 127px;
 }

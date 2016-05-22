@@ -1,7 +1,12 @@
 # Goople Maps Application
 The objective of this project was to top make a one page application using AJAX and Knock Out.
 
-## Run Application
+## Run Application Locally
+
+1. Download Zip flie or clone repo.
+2. Run index.html in your browser.
+
+## Run Application Online
 Access Appilcation: https://cdn.rawgit.com/garcrich/Neighborhood_Map/master/index.html
 
 ### Search

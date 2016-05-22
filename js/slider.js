@@ -16,7 +16,7 @@ function flickrAPI() {
         var json = JSON.parse(this.responseText);
         var photos = json.photos.photo;
         var urls = photos.map(function(photo) {
-            return 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
+            return 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_q.jpg';
         });
 
         updateImages(urls);
