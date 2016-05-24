@@ -41,8 +41,7 @@ body,
     color: #fff;
 }
 
-#hideList,
-#showCoffee {
+#hideList {
     position: absolute;
     z-index: 2;
     top: 8px;
@@ -56,7 +55,6 @@ body,
     cursor: pointer;
 }
 
-#showCoffee {
-    display: none;
-    left: 127px;
+.photo {
+    border: 3px solid black;
 }

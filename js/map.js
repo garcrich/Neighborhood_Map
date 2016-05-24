@@ -50,19 +50,50 @@ function Coffee_pics(lat, lon) {
     this.url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=736d19d58703d5da37a1c87aeed71f96&tags=street&lat=" + lat + "&lon=" + lon + "&format=json&nojsoncallback=1"
 };
 
-function myRequest(store_index) {
+//retrieve flickr urls by lattitude and longitude
+for (var i = 0; i < Coffee_shops().length; i++) {
+    store_url = new Coffee_pics(Coffee_shops()[i].latitude, Coffee_shops()[i].longitude);
+    store_urls.push(store_url.url);
+}
+var StoreLocations = function(store_index) {
     new XMLHttpRequest();
     this.onreadystatechange = flickrAPI;
     this.open("GET", store_index); //url by lat and long
     this.send();
 }
 
+//define global variables
+var image = [],
+myRequest = new XMLHttpRequest();
+//send request to flickrAPI
+myRequest.onreadystatechange = flickrAPI;
+myRequest.open("GET", store_urls[0]);
+myRequest.send();
 
-//retrieve flickr urls by lattitude and longitude
-for (var i = 0; i < Coffee_shops().length; i++) {
-    store_url = new Coffee_pics(Coffee_shops()[i].latitude, Coffee_shops()[i].longitude);
-    store_urls.push(store_url.url);
+//AJAX function grabs information and parses it and provides a url
+function flickrAPI() {
+    if(this.readyState === 4 && this.status === 200){
+        var json = JSON.parse(this.responseText);
+        var photos = json.photos.photo;
+        var urls = photos.map(function(photo) {
+            return 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_q.jpg';
+        });
+
+        updateImages(urls);
+    } else if (this.readyState === 4 && this.status !== 200) {
+        alert("local images are currently unavailable. Please check your internet connection");
+    }
 }
+
+
+//Once flickr API is successful store image links within image array
+function updateImages(images) {
+    image = images;
+    imageNumber = 0;
+    imageLength = images.length;
+}
+
+
 console.log(store_urls);
 
 //ko filter
@@ -142,7 +173,8 @@ function makeMarkers(filtered) {
             google.maps.event.addListener(Coffee_shops_allMarkers[i], "click", (function(Coffee_shops_allMarkers, i) {
                 return function() {
                     //content for info window
-                    var contentString = "<h2>" + filtered[i].title + "</h2>" + "<h3>" + filtered[i].streetAddress + "</h3>" + "<img src='" + image[i] + "'>" + "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" + filtered[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + filtered[i].website + "</a>";
+                    var contentString = "<h2>" + filtered[i].title + "</h2>" + "<h3>" + filtered[i].streetAddress + "</h3>" + "<img class='photo' src='" + image[i] + "'>"
+                    + "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" + filtered[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + filtered[i].website + "</a>";
                     //set info window information
                     infowindow.setContent(contentString);
                     infowindow.open(map, Coffee_shops_allMarkers[i]);
@@ -160,40 +192,6 @@ function makeMarkers(filtered) {
         }
     }
 }
-
-//define global variables
-var image = [],
-    myRequest = new XMLHttpRequest();
-
-    ;
-//send request to flickrAPI
-myRequest.onreadystatechange = flickrAPI;
-myRequest.open("GET", store_urls[0]);
-myRequest.send();
-
-//AJAX function grabs information and parses it and provides a url
-function flickrAPI() {
-    if(this.readyState === 4 && this.status === 200){
-        var json = JSON.parse(this.responseText);
-        var photos = json.photos.photo;
-        var urls = photos.map(function(photo) {
-            return 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_q.jpg';
-        });
-
-        updateImages(urls);
-    } else if (this.readyState === 4 && this.status !== 200) {
-        alert("local images are currently unavailable. Please check your internet connection");
-    }
-}
-
-
-//Once flickr API is successful store image links within image array
-function updateImages(images) {
-    image = images;
-    imageNumber = 0;
-    imageLength = images.length;
-}
-
 //initialize google Map
 function initMap() {
 
