@@ -14,8 +14,8 @@ var Location = function(koTitle, title, latitude, longitude, streetAddress, webs
     var
         _koTitle = ko.observable(koTitle),
         _title = title,
-        _latitude = ko.observable(latitude),
-        _longitude = ko.observable(longitude),
+        _latitude = latitude,
+        _longitude = longitude,
         _streetAddress = streetAddress,
         _website = website,
         _setVisible = ko.observable(setVisible);
@@ -31,6 +31,7 @@ var Location = function(koTitle, title, latitude, longitude, streetAddress, webs
     };
 };
 
+
 var Coffee_shops = ko.observableArray([
     //var location = function (koTitle, title,latitude,longitude,streetAddress,website)
     new Location("Salt Lake Roasting Co", "Salt Lake Roasting Co", 40.7603327, -111.8817539, "320 E 400 S", "http://www.roasting.com/"),
@@ -41,6 +42,28 @@ var Coffee_shops = ko.observableArray([
     new Location("Millcreek Coffee Roasters", "Millcreek Coffee Roasters", 40.754951, -111.890677, "657 Main St", "http://www.millcreekcoffee.com/"),
     new Location("The Rose Establishment", "The Rose Establishment", 40.764005, -111.902221, "235 400 W", "http://www.theroseestb.com/")
 ]);
+
+
+var store_urls = [];
+//constructor to retrieve flickr urls by latitude and longitude
+function Coffee_pics(lat, lon) {
+    this.url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=736d19d58703d5da37a1c87aeed71f96&tags=street&lat=" + lat + "&lon=" + lon + "&format=json&nojsoncallback=1"
+};
+
+function myRequest(store_index) {
+    new XMLHttpRequest();
+    this.onreadystatechange = flickrAPI;
+    this.open("GET", store_index); //url by lat and long
+    this.send();
+}
+
+
+//retrieve flickr urls by lattitude and longitude
+for (var i = 0; i < Coffee_shops().length; i++) {
+    store_url = new Coffee_pics(Coffee_shops()[i].latitude, Coffee_shops()[i].longitude);
+    store_urls.push(store_url.url);
+}
+console.log(store_urls);
 
 //ko filter
 var viewModel = function vmInit() {
@@ -104,8 +127,8 @@ function makeMarkers(filtered) {
         for (var i = 0; i < filtered.length; i++) {
             marker = new google.maps.Marker({
                 position: {
-                    lat: filtered[i].latitude(),
-                    lng: filtered[i].longitude()
+                    lat: filtered[i].latitude,
+                    lng: filtered[i].longitude
                 },
                 map: map,
                 animation: null,
@@ -136,6 +159,39 @@ function makeMarkers(filtered) {
             })(Coffee_shops_allMarkers, i));
         }
     }
+}
+
+//define global variables
+var image = [],
+    myRequest = new XMLHttpRequest();
+
+    ;
+//send request to flickrAPI
+myRequest.onreadystatechange = flickrAPI;
+myRequest.open("GET", store_urls[0]);
+myRequest.send();
+
+//AJAX function grabs information and parses it and provides a url
+function flickrAPI() {
+    if(this.readyState === 4 && this.status === 200){
+        var json = JSON.parse(this.responseText);
+        var photos = json.photos.photo;
+        var urls = photos.map(function(photo) {
+            return 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_q.jpg';
+        });
+
+        updateImages(urls);
+    } else if (this.readyState === 4 && this.status !== 200) {
+        alert("local images are currently unavailable. Please check your internet connection");
+    }
+}
+
+
+//Once flickr API is successful store image links within image array
+function updateImages(images) {
+    image = images;
+    imageNumber = 0;
+    imageLength = images.length;
 }
 
 //initialize google Map
