@@ -1,16 +1,15 @@
-var map;
-var store_urls = [];
-var infowindow = new google.maps.InfoWindow();
 var marker;
-var image = [];
-var imageArray = [];
+var map;
+    store_urls = [],
+    infowindow = new google.maps.InfoWindow(),
+    image = [],
+    imageArray = [],
+    self = this;
 
-var self = this;
 self.showList = ko.observable(true);
     self.toggleList = function() {
         self.showList(!self.showList());
     }
-
 //revealing module pattern for Locations
 var Location = function(koTitle, title, latitude, longitude, streetAddress, website, setVisible) {
     "use strict";
@@ -57,8 +56,6 @@ for (var i = 0; i < Coffee_shops().length; i++) {
     var store_url = new Coffee_pics(Coffee_shops()[i].latitude, Coffee_shops()[i].longitude);
     store_urls.push(store_url.url);
 }
-
-
 
 Request1 = new XMLHttpRequest();
 //send request to flickrAPI
