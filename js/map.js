@@ -48,7 +48,7 @@ var Coffee_shops = ko.observableArray([
 
 //constructor to retrieve flickr urls by latitude and longitude
 function Coffee_pics(lat, lon) {
-    this.url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=736d19d58703d5da37a1c87aeed71f96&tags=street&lat=" + lat + "&lon=" + lon + "&format=json&nojsoncallback=1"
+    this.url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=1e96d71e506797151f901590a412d700&tags=street&lat=" + lat + "&lon=" + lon + "&format=json&nojsoncallback=1"
 };
 
 //retrieve flickr urls by lattitude and longitude
