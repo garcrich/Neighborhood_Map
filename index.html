@@ -15,7 +15,6 @@
     <!-- Navigation -->
     <div>
         <button id="hideList" data-bind="click: toggleList">Hide List</button>
-        <button id="showCoffee">Local Photos!</button>
     </div>
 
     <!-- Search List -->
@@ -24,7 +23,7 @@
         <table>
             <tbody data-bind="{foreach:Coffee_shops}">
                 <tr>
-                    <td data-bind="{text:title}"></td>
+                    <td data-bind="{text:koTitle}"></td>
                 </tr>
             </tbody>
         </table>
