@@ -21,9 +21,9 @@
     <div id="search" data-bind="visible: showList">
         <input type="text" placeholder="Search" data-bind="textInput:searchTerm, valueUpdate: 'keyup'">
         <table>
-            <tbody data-bind="{foreach:Coffee_shops}">
+            <tbody data-bind="foreach:Coffee_shops">
                 <tr>
-                    <td data-bind="{text:koTitle}"></td>
+                    <td data-bind="text:koTitle, click: testing"></td>
                 </tr>
             </tbody>
         </table>

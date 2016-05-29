@@ -14,6 +14,12 @@ body,
 tr {
     cursor: pointer;
 }
+
+tr:hover {
+    text-decoration: underline;
+    color: #fff;
+}
+
 .flickr_test {
     margin: 10px;
     border: 2px solid;

@@ -6,10 +6,11 @@ var map;
     imageArray = [],
     self = this;
 
-self.showList = ko.observable(true);
-    self.toggleList = function() {
-        self.showList(!self.showList());
+var showList = ko.observable(true);
+    toggleList = function() {
+        showList(!self.showList());
     }
+
 //revealing module pattern for Locations
 var Location = function(koTitle, title, latitude, longitude, streetAddress, website, setVisible) {
     "use strict";
@@ -44,7 +45,6 @@ var Coffee_shops = ko.observableArray([
     new Location("Millcreek Coffee Roasters", "Millcreek Coffee Roasters", 40.754951, -111.890677, "657 Main St", "http://www.millcreekcoffee.com/"),
     new Location("The Rose Establishment", "The Rose Establishment", 40.764005, -111.902221, "235 400 W", "http://www.theroseestb.com/")
 ]);
-
 
 //constructor to retrieve flickr urls by latitude and longitude
 function Coffee_pics(lat, lon) {
@@ -115,7 +115,6 @@ function flickrAPI() {
     }
 }
 
-
 //Once flickr API is successful store image links within image array
 function updateImages(images) {
     image = images;
@@ -165,11 +164,26 @@ var viewModel = function vmInit() {
 };
 
 ko.applyBindings(viewModel);
+function testing() {
+    for (var i = 0; i < Coffee_shops_allMarkers.length; i++) {
+        if(event.target.innerHTML ===  Coffee_shops_allMarkers[i].title) {
+            var listContentString = "<h2>" + Coffee_shops_allMarkers[i].title + "</h2>" + "<h3>" + Coffee_shops_streets[i] + "</h3>" + "<img class='photo' src='" + imageArray[i][i] + "'>"
+                + "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" + Coffee_shops_website[i] + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + Coffee_shops_website[i] + "</a>";
+            infowindow.setContent(listContentString);
+            infowindow.open(map, Coffee_shops_allMarkers[i]);
+        }
+    }
+}
+
 
 //add property to Coffee_shops array
 //empty array for google markers
 Coffee_shops.allMarkers = [];
+Coffee_shops.streets = [];
+Coffee_shops.website = [];
 var Coffee_shops_allMarkers = Coffee_shops.allMarkers;
+var Coffee_shops_streets = Coffee_shops.streets;
+var Coffee_shops_website = Coffee_shops.website;
 
 //map markers
 function makeMarkers(filtered) {
@@ -178,7 +192,9 @@ function makeMarkers(filtered) {
         Coffee_shops_allMarkers.forEach(function(marker) {
             marker.setVisible(false);
         });
+        Coffee_shops_streets = [];
         Coffee_shops_allMarkers = [];
+        Coffee_shops_website = [];
         if (!filtered) {
             filtered = Coffee_shops();
         }
@@ -193,11 +209,15 @@ function makeMarkers(filtered) {
                     lng: filtered[i].longitude
                 },
                 map: map,
+                infoWindow: null,
                 animation: null,
                 title: filtered[i].title,
             });
-
             Coffee_shops_allMarkers.push(marker); //push markers because Google Maps does not support this feature
+            Coffee_shops_streets.push(filtered[i].streetAddress);
+            Coffee_shops_website.push(filtered[i].website);
+
+
 
             //when marker is clicked info window with Coffee_shops information will appear and animation
             // will be set to Bounce for marker
