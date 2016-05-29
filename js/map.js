@@ -164,7 +164,8 @@ var viewModel = function vmInit() {
 };
 
 ko.applyBindings(viewModel);
-function testing() {
+
+function infoWin() {
     for (var i = 0; i < Coffee_shops_allMarkers.length; i++) {
         if(event.target.innerHTML ===  Coffee_shops_allMarkers[i].title) {
             var listContentString = "<h2>" + Coffee_shops_allMarkers[i].title + "</h2>" + "<h3>" + Coffee_shops_streets[i] + "</h3>" + "<img class='photo' src='" + imageArray[i][i] + "'>"
@@ -237,7 +238,6 @@ function makeMarkers(filtered) {
                         Coffee_shops_allMarkers[i].setAnimation(google.maps.Animation.BOUNCE);
                         setTimeout(function(){Coffee_shops_allMarkers[i].setAnimation(null);}, 700);
                     }
-
                 };
             })(Coffee_shops_allMarkers, i));
         }
@@ -266,3 +266,7 @@ function initMap() {
 }
 
 initMap();
+
+if(typeof google === undefined && typeof google.maps === "object") {
+    alert("Google Maps failed to load. Please check your internet connection. If you are a developer please check the command line for further details.");
+}
