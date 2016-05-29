@@ -1,7 +1,7 @@
 var marker;
+var infowindow;
 var map;
     store_urls = [],
-    infowindow = new google.maps.InfoWindow(),
     image = [],
     imageArray = [],
     self = this;
@@ -108,6 +108,7 @@ function flickrAPI() {
             return 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_q.jpg';
         });
         updateImages(urls);
+        console.log("called json" + json);
 
 
     } else if (this.readyState === 4 && this.status !== 200) {
@@ -115,12 +116,10 @@ function flickrAPI() {
     }
 }
 
-//Once flickr API is successful store image links within image array
+//Once flickr API is successful store image links within image then push each image into image Array array
 function updateImages(images) {
-    image = images;
-    imageNumber = 0;
-    imageLength = 1;
-    imageArray.push(image);
+    image = images; //callback value
+    imageArray.push(image); //store callback value (image) in array
 }
 
 
@@ -136,8 +135,6 @@ var viewModel = function vmInit() {
         if (!filter) {
             makeMarkers(Coffee_shops());
             return Coffee_shops();
-        } else {
-
         }
         //filter data
         var filtered = ko.utils.arrayFilter(Coffee_shops(), function(item) {
@@ -155,8 +152,6 @@ var viewModel = function vmInit() {
         makeMarkers(filtered);
         return filtered;
     });
-
-
     return {
         searchTerm: searchTerm,
         Coffee_shops: filteredCoffee_shops,
@@ -245,7 +240,7 @@ function makeMarkers(filtered) {
 }
 //initialize google Map
 function initMap() {
-
+    infowindow = new google.maps.InfoWindow();
     //map coordinates and options
     var mapOptions = {
         zoom: 14,
