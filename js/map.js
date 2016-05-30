@@ -1,13 +1,13 @@
 var marker;
 var infowindow;
 var map;
-    store_urls = [],
-    image = [],
-    imageArray = [],
-    self = this;
+store_urls = [],
+image = [],
+imageArray = [],
+self = this;
 
 //Error handling for Google Maps
-setTimeout(function(){
+setTimeout(function() {
     var googleError = document.createElement("span");
     googleError.id = "map-error";
     googleError.innerHTML = "Unable to load google maps. Please check your internet connection and refresh your browser.";
@@ -15,9 +15,9 @@ setTimeout(function(){
 }, 7500);
 
 var showList = ko.observable(true);
-    toggleList = function() {
-        showList(!self.showList());
-    }
+toggleList = function() {
+    showList(!self.showList());
+}
 
 //revealing module pattern for Locations
 var Location = function(koTitle, title, latitude, longitude, streetAddress, website, setVisible) {
@@ -109,7 +109,7 @@ Request7.send();
 
 //AJAX function grabs information and parses it and provides a url
 function flickrAPI() {
-    if(this.readyState === 4 && this.status === 200){
+    if (this.readyState === 4 && this.status === 200) {
         var json = JSON.parse(this.responseText);
         var photos = json.photos.photo;
         var urls = photos.map(function(photo) {
@@ -120,7 +120,7 @@ function flickrAPI() {
 
 
     } else if (this.readyState === 4 && this.status !== 200) {
-       alert("local image is currently unavailable. Please check your internet connection");
+        alert("local image is currently unavailable. Please check your internet connection");
     }
 }
 
@@ -170,17 +170,16 @@ ko.applyBindings(viewModel);
 
 function infoWin() {
     for (var i = 0; i < Coffee_shops_allMarkers.length; i++) {
-        if(event.target.innerHTML ===  Coffee_shops_allMarkers[i].title) {
-            var listContentString = "<h2>" + Coffee_shops_allMarkers[i].title + "</h2>" + "<h3>" + Coffee_shops_streets[i] + "</h3>" + "<img class='photo' src='" + imageArray[i][i] + "'>"
-                + "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" + Coffee_shops_website[i] + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + Coffee_shops_website[i] + "</a>";
+        if (event.target.innerHTML === Coffee_shops_allMarkers[i].title) {
+            var listContentString = "<h2>" + Coffee_shops_allMarkers[i].title + "</h2>" + "<h3>" + Coffee_shops_streets[i] + "</h3>" + "<img class='photo' src='" + imageArray[i][i] + "'>" +
+                "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" + Coffee_shops_website[i] + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + Coffee_shops_website[i] + "</a>";
             infowindow.setContent(listContentString);
             infowindow.open(map, Coffee_shops_allMarkers[i]);
         }
     }
 }
 
-
-//add property to Coffee_shops array
+//add properties to Coffee_shops array
 //empty array for google markers
 Coffee_shops.allMarkers = [];
 Coffee_shops.streets = [];
@@ -221,15 +220,13 @@ function makeMarkers(filtered) {
             Coffee_shops_streets.push(filtered[i].streetAddress);
             Coffee_shops_website.push(filtered[i].website);
 
-
-
             //when marker is clicked info window with Coffee_shops information will appear and animation
             // will be set to Bounce for marker
             google.maps.event.addListener(Coffee_shops_allMarkers[i], "click", (function(Coffee_shops_allMarkers, i) {
                 return function() {
                     //content for info window
-                    var contentString = "<h2>" + filtered[i].title + "</h2>" + "<h3>" + filtered[i].streetAddress + "</h3>" + "<img class='photo' src='" + imageArray[i][i] + "'>"
-                    + "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" + filtered[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + filtered[i].website + "</a>";
+                    var contentString = "<h2>" + filtered[i].title + "</h2>" + "<h3>" + filtered[i].streetAddress + "</h3>" + "<img class='photo' src='" + imageArray[i][i] + "'>" +
+                        "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" + filtered[i].website + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + filtered[i].website + "</a>";
                     //set info window information
                     infowindow.setContent(contentString);
                     infowindow.open(map, Coffee_shops_allMarkers[i]);
@@ -239,7 +236,9 @@ function makeMarkers(filtered) {
                         infowindow.close(map, Coffee_shops_allMarkers[i]);
                     } else {
                         Coffee_shops_allMarkers[i].setAnimation(google.maps.Animation.BOUNCE);
-                        setTimeout(function(){Coffee_shops_allMarkers[i].setAnimation(null);}, 700);
+                        setTimeout(function() {
+                            Coffee_shops_allMarkers[i].setAnimation(null);
+                        }, 700);
                     }
                 };
             })(Coffee_shops_allMarkers, i));
@@ -267,4 +266,3 @@ function initMap() {
     map = new google.maps.Map(document.getElementById("mapDiv"), mapOptions);
     makeMarkers();
 }
-
