@@ -2,9 +2,9 @@ var marker;
 var infowindow;
 var map;
 store_urls = [],
-image = [],
-imageArray = [],
-self = this;
+    image = [],
+    imageArray = [],
+    self = this;
 
 //Error handling for Google Maps
 setTimeout(function() {
@@ -118,7 +118,9 @@ function flickrAPI1() {
         });
         updateImages(urls);
     } else if (this.readyState === 4 && this.status !== 200) {
-        setTimeout(function(){alert("local image is currently unavailable. Please check your internet connection");}, 3500);
+        setTimeout(function() {
+            alert("local image is currently unavailable. Please check your internet connection");
+        }, 3500);
     }
 }
 
@@ -137,10 +139,8 @@ function flickrAPI() {
 
 //Once flickr API is successful store image links within image then push each image into image Array array
 function updateImages(images) {
-    image = images; //callback value
-    imageArray.push(image); //store callback value (image) in array
+    imageArray.push(images); //store callback value (image) in array
 }
-
 
 console.log(store_urls);
 
@@ -180,6 +180,12 @@ var viewModel = function() {
 
 ko.applyBindings(viewModel);
 
+function configureTimeout(parameter) {
+    setTimeout(function() {
+        parameter;
+    }, 700);
+}
+
 function infoWin() {
     for (var i = 0; i < Coffee_shops_allMarkers.length; i++) {
         if (event.target.innerHTML === Coffee_shops_allMarkers[i].title) {
@@ -187,6 +193,12 @@ function infoWin() {
                 "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" + Coffee_shops_website[i] + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + Coffee_shops_website[i] + "</a>";
             infowindow.setContent(listContentString);
             infowindow.open(map, Coffee_shops_allMarkers[i]);
+            Coffee_shops_allMarkers[i].setAnimation(google.maps.Animation.BOUNCE);
+            (function(i) {
+                setTimeout(function() {
+                    Coffee_shops_allMarkers[i].setAnimation(null);
+                }, 700);
+            })(i);
         }
     }
 }

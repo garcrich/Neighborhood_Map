@@ -82,7 +82,7 @@ tr:hover {
     border-radius: 10px;
     text-align: center;
     -webkit-animation-name: example; /* Chrome, Safari, Opera */
-    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2.5s; /* Chrome, Safari, Opera */
 
 }
 
