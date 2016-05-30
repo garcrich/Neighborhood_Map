@@ -12,7 +12,7 @@ setTimeout(function() {
     googleError.id = "map-error";
     googleError.innerHTML = "Unable to load google maps. Please check your internet connection and refresh your browser.";
     document.getElementById("mapDiv").appendChild(googleError);
-}, 7500);
+}, 2250);
 
 var showList = ko.observable(true);
 toggleList = function() {
@@ -67,7 +67,7 @@ for (var i = 0; i < Coffee_shops().length; i++) {
 
 Request1 = new XMLHttpRequest();
 //send request to flickrAPI
-Request1.onreadystatechange = flickrAPI;
+Request1.onreadystatechange = flickrAPI1;
 Request1.open("GET", store_urls[0]);
 Request1.send();
 
@@ -108,6 +108,20 @@ Request7.open("GET", store_urls[6]);
 Request7.send();
 
 //AJAX function grabs information and parses it and provides a url
+//flickrAPI1 includes else if to check connection. Less DRY but will only show alert box once vs. 7 times.
+function flickrAPI1() {
+    if (this.readyState === 4 && this.status === 200) {
+        var json = JSON.parse(this.responseText);
+        var photos = json.photos.photo;
+        var urls = photos.map(function(photo) {
+            return 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_q.jpg';
+        });
+        updateImages(urls);
+    } else if (this.readyState === 4 && this.status !== 200) {
+        setTimeout(function(){alert("local image is currently unavailable. Please check your internet connection");}, 3500);
+    }
+}
+
 function flickrAPI() {
     if (this.readyState === 4 && this.status === 200) {
         var json = JSON.parse(this.responseText);
@@ -117,12 +131,9 @@ function flickrAPI() {
         });
         updateImages(urls);
         console.log("called json" + json);
-
-
-    } else if (this.readyState === 4 && this.status !== 200) {
-        alert("local image is currently unavailable. Please check your internet connection");
     }
 }
+
 
 //Once flickr API is successful store image links within image then push each image into image Array array
 function updateImages(images) {
@@ -134,7 +145,7 @@ function updateImages(images) {
 console.log(store_urls);
 
 //ko filter
-var viewModel = function vmInit() {
+var viewModel = function() {
 
     var searchTerm = ko.observable("");
 
@@ -158,6 +169,7 @@ var viewModel = function vmInit() {
             return false;
         });
         makeMarkers(filtered);
+        infowindow.close();
         return filtered;
     });
     return {
