@@ -6,6 +6,14 @@ var map;
     imageArray = [],
     self = this;
 
+//Error handling for Google Maps
+setTimeout(function(){
+    var googleError = document.createElement("span");
+    googleError.id = "map-error";
+    googleError.innerHTML = "Unable to load google maps. Please check your internet connection and refresh your browser.";
+    document.getElementById("mapDiv").appendChild(googleError);
+}, 7500);
+
 var showList = ko.observable(true);
     toggleList = function() {
         showList(!self.showList());
@@ -112,7 +120,7 @@ function flickrAPI() {
 
 
     } else if (this.readyState === 4 && this.status !== 200) {
-        alert("local images are currently unavailable. Please check your internet connection");
+       alert("local image is currently unavailable. Please check your internet connection");
     }
 }
 
@@ -260,8 +268,3 @@ function initMap() {
     makeMarkers();
 }
 
-initMap();
-
-if(typeof google === undefined && typeof google.maps === "object") {
-    alert("Google Maps failed to load. Please check your internet connection. If you are a developer please check the command line for further details.");
-}

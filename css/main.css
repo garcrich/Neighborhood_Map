@@ -66,3 +66,27 @@ tr:hover {
 .photo {
     border: 3px solid black;
 }
+
+#map-error {
+    z-index: -1;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    font-size: 1.1em;
+    margin-right: 25px;
+    font-weight: bold;
+    padding: 15px 10px;
+    color: #ff0000;
+    background-color: rgb(230,223,223);
+    border-radius: 10px;
+    text-align: center;
+    -webkit-animation-name: example; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes example {
+    from {top: -10%;}
+    to {top: 25%;}
+}
