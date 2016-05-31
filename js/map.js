@@ -186,9 +186,9 @@ function configureTimeout(parameter) {
     }, 700);
 }
 
-function infoWin() {
+function infoWin(data) {
     for (var i = 0; i < Coffee_shops_allMarkers.length; i++) {
-        if (event.target.innerHTML === Coffee_shops_allMarkers[i].title) {
+        if (data.title === Coffee_shops_allMarkers[i].title) {
             var listContentString = "<h2>" + Coffee_shops_allMarkers[i].title + "</h2>" + "<h3>" + Coffee_shops_streets[i] + "</h3>" + "<img class='photo' src='" + imageArray[i][i] + "'>" +
                 "<h4>" + "website:" + "</h4>" + "<a href=" + "\"" + Coffee_shops_website[i] + "\"" + "target=" + "\"" + "_blank" + "\"" + ">" + Coffee_shops_website[i] + "</a>";
             infowindow.setContent(listContentString);
