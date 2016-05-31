@@ -17,7 +17,7 @@ setTimeout(function() {
 var showList = ko.observable(true);
 toggleList = function() {
     showList(!self.showList());
-}
+};
 
 //revealing module pattern for Locations
 var Location = function(koTitle, title, latitude, longitude, streetAddress, website, setVisible) {
@@ -56,8 +56,8 @@ var Coffee_shops = ko.observableArray([
 
 //constructor to retrieve flickr urls by latitude and longitude
 function Coffee_pics(lat, lon) {
-    this.url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=1e96d71e506797151f901590a412d700&tags=street&lat=" + lat + "&lon=" + lon + "&format=json&nojsoncallback=1"
-};
+    this.url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=1e96d71e506797151f901590a412d700&tags=street&lat=" + lat + "&lon=" + lon + "&format=json&nojsoncallback=1";
+}
 
 //retrieve flickr urls by lattitude and longitude
 for (var i = 0; i < Coffee_shops().length; i++) {
@@ -180,12 +180,6 @@ var viewModel = function() {
 
 ko.applyBindings(viewModel);
 
-function configureTimeout(parameter) {
-    setTimeout(function() {
-        parameter;
-    }, 700);
-}
-
 function infoWin(data) {
     for (var i = 0; i < Coffee_shops_allMarkers.length; i++) {
         if (data.title === Coffee_shops_allMarkers[i].title) {
@@ -269,6 +263,7 @@ function makeMarkers(filtered) {
         }
     }
 }
+
 //initialize google Map
 function initMap() {
     infowindow = new google.maps.InfoWindow();
