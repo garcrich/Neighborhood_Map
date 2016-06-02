@@ -12,7 +12,7 @@ setTimeout(function() {
     googleError.id = "map-error";
     googleError.innerHTML = "Unable to load google maps. Please check your internet connection and refresh your browser.";
     document.getElementById("mapDiv").appendChild(googleError);
-}, 2250);
+}, 3500);
 
 var showList = ko.observable(true);
 toggleList = function() {
