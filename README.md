@@ -1,5 +1,5 @@
 # Goople Maps Application
-The objective of this project was to top make a one page application using AJAX and Knock Out.
+The objective of this project was to make a one page application using AJAX and Knock Out.
 
 ## Run Application Locally
 
