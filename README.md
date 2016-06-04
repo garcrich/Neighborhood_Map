@@ -3,7 +3,7 @@ The objective of this project was to make a one page application using AJAX and 
 
 ## Run Application Locally
 
-1. Download Zip flie or clone repo.
+1. Download Zip file or clone repo.
 2. Run index.html in your browser.
 
 ## Run Application Online
