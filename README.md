@@ -1,4 +1,4 @@
-# Goople Maps Application
+# Google Maps Application
 The objective of this project was to make a one page application using AJAX and Knock Out.
 
 ## Run Application Locally
